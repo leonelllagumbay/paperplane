@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { Injectable, ElementRef, OnDestroy, NgZone } from '@angular/core';
+import { thisExpression } from 'babel-types';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,13 @@ export class EngineService implements OnDestroy {
     if (this.frameId != null) {
       cancelAnimationFrame(this.frameId);
     }
+  }
+
+  updateCamera() {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    console.log('camera update');
   }
 
   createScene(canvas: ElementRef<HTMLCanvasElement>): void {

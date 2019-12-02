@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { EngineService } from './engine.service';
 
 @Component({
@@ -10,6 +10,12 @@ export class EngineComponent implements OnInit {
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
   constructor(private engServ: EngineService) {}
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(e: any) {
+    console.log('e', e);
+    this.engServ.updateCamera();
+  }
 
   ngOnInit() {
     this.engServ.createScene(this.rendererCanvas);

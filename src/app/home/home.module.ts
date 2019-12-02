@@ -14,6 +14,8 @@ import { UiInfobarBottomComponent } from '@app/ui/ui-infobar-bottom/ui-infobar-b
 import { UiInfobarTopComponent } from '@app/ui/ui-infobar-top/ui-infobar-top.component';
 import { UiSidebarLeftComponent } from '@app/ui/ui-sidebar-left/ui-sidebar-left.component';
 import { UiSidebarRightComponent } from '@app/ui/ui-sidebar-right/ui-sidebar-right.component';
+import { RandomCubesComponent } from './example/random-cubes/random-cubes.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { UiSidebarRightComponent } from '@app/ui/ui-sidebar-right/ui-sidebar-rig
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     HomeRoutingModule
   ],
   declarations: [
@@ -32,7 +36,8 @@ import { UiSidebarRightComponent } from '@app/ui/ui-sidebar-right/ui-sidebar-rig
     UiInfobarBottomComponent,
     UiInfobarTopComponent,
     UiSidebarLeftComponent,
-    UiSidebarRightComponent
+    UiSidebarRightComponent,
+    RandomCubesComponent
   ]
 })
 export class HomeModule {}
