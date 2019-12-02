@@ -1,0 +1,30 @@
+<form [formGroup]="controlForm">
+  Top: {{ top?.value }}<input [formControlName]="'top'" type="range" min="-30000" step="10" max="30000" /> Bottom:
+  {{ bottom?.value }}<input [formControlName]="'bottom'" type="range" min="-30000" step="10" max="30000" /> Left:
+  {{ left?.value }}<input [formControlName]="'left'" type="range" min="-30000" step="10" max="30000" /> Right:
+  {{ right?.value }}<input [formControlName]="'right'" type="range" min="-30000" step="10" max="30000" /> Rotate
+  Top2Bottom: {{ rotateTopBottom?.value
+  }}<input [formControlName]="'rotateTopBottom'" type="range" min="-30000" step="10" max="30000" /> Rotate Right2Left:
+  {{ rotateRightLeft?.value
+  }}<input [formControlName]="'rotateRightLeft'" type="range" min="-30000" step="10" max="30000" />
+</form>
+
+<div class="engine-wrapper">
+  <canvas #rendererCanvas id="renderCanvas"></canvas>
+</div>
+
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>{{ title }}</h1>
+  <div class="maze-form">
+    <label for="nRow"># Rows</label>
+    <input id="nRow" type="number" [(ngModel)]="row" />
+    <label for="nCol"># Columns</label>
+    <input id="nCol" type="number" [(ngModel)]="col" />
+    <button type="button" (click)="drawMaze()">Draw Maze</button>
+    <button type="button" (click)="drawPath()">Draw Path</button>
+  </div>
+  <section>
+    <canvas id="maze"></canvas>
+  </section>
+</div>
