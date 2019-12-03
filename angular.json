@@ -24,7 +24,11 @@
             "polyfills": "src/polyfills.ts",
             "assets": ["src/favicon.ico", "src/apple-touch-icon.png", "src/robots.txt", "src/assets"],
             "styles": ["src/main.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/three/build/three.min.js",
+              "node_modules/three/examples/js/renderers/CSS3DRenderer.js",
+              "node_modules/three/examples/js/controls/OrbitControls.js"
+            ]
           },
           "configurations": {
             "production": {

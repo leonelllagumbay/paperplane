@@ -45,19 +45,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  @HostListener('window:gamepadconnected', ['$event'])
-  gamePadConnected(e: any) {
-    const gamepad = e.gamepad;
-    console.log(`Gamepad connected at index ${gamepad.index}: ${gamepad.id}.
-              ${gamepad.buttons.length} buttons, ${gamepad.axes.length} axes.`);
-  }
+  // @HostListener('window:gamepadconnected', ['$event'])
+  // gamePadConnected(e: any) {
+  //   // const gamepad = e.gamepad;
+  //   // console.log(`Gamepad connected at index ${gamepad.index}: ${gamepad.id}.
+  //             // ${gamepad.buttons.length} buttons, ${gamepad.axes.length} axes.`);
+  // }
 
   ngOnInit() {}
 
   ngAfterViewInit() {
     if (!('ongamepadconnected' in window)) {
       // No gamepad events available, poll instead.
-      interval = setInterval(this.pollGamepads, 100);
+      // interval = setInterval(this.pollGamepads, 100);
     }
   }
 

@@ -1,25 +1,20 @@
-<!-- <form [formGroup]="controlForm">
-  Top: {{ top?.value }}<input [formControlName]="'top'" type="range" min="-30000" step="10" max="30000" /> Bottom:
+<form [formGroup]="controlForm">
+  <!-- Top: {{ top?.value }}<input [formControlName]="'top'" type="range" min="-30000" step="10" max="30000" /> Bottom:
   {{ bottom?.value }}<input [formControlName]="'bottom'" type="range" min="-30000" step="10" max="30000" /> Left:
   {{ left?.value }}<input [formControlName]="'left'" type="range" min="-30000" step="10" max="30000" /> Right:
   {{ right?.value }}<input [formControlName]="'right'" type="range" min="-30000" step="10" max="30000" /> Rotate
   Top2Bottom: {{ rotateTopBottom?.value
-  }}<input [formControlName]="'rotateTopBottom'" type="range" min="-30000" step="10" max="30000" /> Rotate Right2Left:
+  }}<input [formControlName]="'rotateTopBottom'" type="range" min="-30000" step="10" max="30000" />  -->
+  <!-- Rotate Right2Left:
   {{ rotateRightLeft?.value
-  }}<input [formControlName]="'rotateRightLeft'" type="range" min="-30000" step="10" max="30000" />
-</form> -->
-<button type="text" (mousedown)="onMouseDown('translate', 'x')" (mouseup)="stopAction()">move x up {{ x }}</button>
-<button type="text" (mousedown)="onMouseDown('translate', '-x')" (mouseup)="stopAction()">move x down {{ x }}</button>
-<button type="text" (mousedown)="onMouseDown('translate', 'y')" (mouseup)="stopAction()">move y up {{ y }}</button>
-<button type="text" (mousedown)="onMouseDown('translate', '-y')" (mouseup)="stopAction()">move y down {{ y }}</button>
-<button type="text" (mousedown)="onMouseDown('translate', 'z')" (mouseup)="stopAction()">move z up {{ z }}</button>
-<button type="text" (mousedown)="onMouseDown('translate', '-z')" (mouseup)="stopAction()">move z down {{ z }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', 'x')" (mouseup)="stopAction()">rotate x up {{ rX }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', '-x')" (mouseup)="stopAction()">rotate x down {{ rX }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', 'y')" (mouseup)="stopAction()">rotate y up {{ rY }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', '-y')" (mouseup)="stopAction()">rotate y down {{ rY }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', 'z')" (mouseup)="stopAction()">rotate z up {{ rZ }}</button>
-<button type="text" (mousedown)="onMouseDown('rotate', '-z')" (mouseup)="stopAction()">rotate z down {{ rZ }}</button>
+  }}<input [formControlName]="'rotateRightLeft'" type="number" /> -->
+</form>
+<!-- <button type="text" (mousedown)="onMouseDown('leftJoy', 'up')" (mouseup)="stopAction()">JoyCon Up</button>
+<button type="text" (mousedown)="onMouseDown('leftJoy', 'down')" (mouseup)="stopAction()">JoyCon Down</button>
+<button type="text" (mousedown)="onMouseDown('leftJoy', 'rotateLeft')" (mouseup)="stopAction()">JoyCon Rotate Left</button>
+<button type="text" (mousedown)="onMouseDown('leftJoy', 'rotateRight')" (mouseup)="stopAction()">JoyCon Rotate Right</button>
+<button type="text" (mousedown)="onMouseDown('rightJoy', 'forward')" (mouseup)="stopAction()">Forward</button>
+<button type="text" (mousedown)="onMouseDown('rightJoy', 'backward')" (mouseup)="stopAction()">Backward</button> -->
 
 <div class="engine-wrapper">
   <canvas #rendererCanvas id="renderCanvas"></canvas>
