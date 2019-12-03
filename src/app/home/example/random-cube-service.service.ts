@@ -78,14 +78,23 @@ export class RandomCubeServiceService implements OnDestroy {
     const axes = new THREE.AxesHelper(20);
     this.scene.add(axes);
 
+    // this.camera.translateX(0); // (maze.nCol * cellWidth) / 2
+    // this.camera.translateY(0); // -(maze.nRow * cellWidth) / 2
+    // this.camera.rotateZ((Math.PI / 180) * -40);
+    // this.camera.rotateY((Math.PI / 180) * 45);
     this.camera.position.x = 0;
     this.camera.position.y = 0;
-    this.camera.position.z = 24000;
-    /// this.camera.lookAt(this.scene.position);
-    this.camera.translateX((maze.nCol * cellWidth) / 2);
-    this.camera.translateY(-(maze.nRow * cellWidth) / 2);
+    this.camera.position.z = 8500;
+    this.camera.setFocalLength(50);
+    this.camera.rotateZ((Math.PI / 180) * 0);
+    // this.camera.rotateX((Math.PI / 180) * -10);
+    // this.camera.rotateX((Math.PI / 180) * -10);
+    console.log('camera rot', this.camera.rotation);
+    console.log('camera position', this.camera.position);
 
     this.addPlane(maze.nCol, maze.nRow, wallWidthX, wallHeightY);
+
+    // this.addSphere();
 
     const spotLight = new THREE.SpotLight(0xffffff);
     spotLight.position.set(100, 200, maze.nCol * wallDepthZ);
@@ -233,6 +242,20 @@ export class RandomCubeServiceService implements OnDestroy {
     }
   }
 
+  addSphere() {
+    const sphereGeometry = new THREE.SphereGeometry(100);
+    const sphereMaterial = new THREE.MeshLambertMaterial({
+      color: 0x00ff00
+    });
+    this.sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    this.sphere.position.x = 3045;
+    this.sphere.position.y = -345;
+    this.sphere.position.z = 200;
+    this.sphere.rotateX((Math.PI / 180) * 45);
+    this.sphere.rotateY((Math.PI / 180) * 45);
+    this.scene.add(this.sphere);
+  }
+
   drawWalls(maze: Maze, wallWidthX: number, wallHeightY: number, wallDepthZ: number, cellWidth: number) {
     for (let row = 0; row < maze.cells.length; row++) {
       for (let column = 0; column < maze.cells[row].length; column++) {
@@ -317,5 +340,47 @@ export class RandomCubeServiceService implements OnDestroy {
     this.cube.castShadow = true;
 
     this.scene.add(this.cube);
+  }
+
+  navigate(action: string, direction: string, speed: number) {
+    if (action === 'translate') {
+      if (direction === 'x') {
+        this.camera.position.x = this.camera.position.x + speed;
+      }
+      if (direction === '-x') {
+        this.camera.position.x = this.camera.position.x - speed;
+      }
+      if (direction === 'y') {
+        this.camera.position.y = this.camera.position.y + speed;
+      }
+      if (direction === '-y') {
+        this.camera.position.y = this.camera.position.y - speed;
+      }
+      if (direction === 'z') {
+        this.camera.position.z = this.camera.position.z + speed;
+      }
+      if (direction === '-z') {
+        this.camera.position.z = this.camera.position.z - speed;
+      }
+    } else if (action === 'rotate') {
+      if (direction === 'x') {
+        this.camera.rotateX(this.camera.rotation.x + speed);
+      }
+      if (direction === '-x') {
+        this.camera.rotateX(this.camera.rotation.x - speed);
+      }
+      if (direction === 'y') {
+        this.camera.rotateY(this.camera.rotation.y + speed);
+      }
+      if (direction === '-y') {
+        this.camera.rotateY(this.camera.rotation.y - speed);
+      }
+      if (direction === 'z') {
+        this.camera.rotateZ(this.camera.rotation.z + speed);
+      }
+      if (direction === '-z') {
+        this.camera.rotateZ(this.camera.rotation.z - speed);
+      }
+    }
   }
 }

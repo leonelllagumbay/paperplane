@@ -18,7 +18,7 @@ export class RandomCubesComponent implements OnInit {
   length = 20;
   wallWidthX = 1000;
   wallHeightY = 1000;
-  wallDepthZ = 1000;
+  wallDepthZ = 2000;
   cellWidth = 1000;
 
   controlForm: FormGroup;
@@ -28,6 +28,15 @@ export class RandomCubesComponent implements OnInit {
   right: FormControl;
   rotateTopBottom: FormControl;
   rotateRightLeft: FormControl;
+
+  x: number;
+  y: number;
+  z: number;
+  rX: number;
+  rY: number;
+  rZ: number;
+
+  action: any;
   private maze: Maze;
   private canvas: HTMLCanvasElement;
 
@@ -98,5 +107,16 @@ export class RandomCubesComponent implements OnInit {
 
   drawPath() {
     this.maze.drawPath(this.canvas, this.length);
+  }
+
+  onMouseDown(action: string, direction: string) {
+    this.action = setInterval(() => {
+      this.randomCubesService.navigate(action, direction, 10);
+    }, 100);
+  }
+
+  stopAction() {
+    console.log('ac', this.action);
+    clearInterval(this.action);
   }
 }

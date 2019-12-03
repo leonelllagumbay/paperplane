@@ -1,4 +1,4 @@
-<form [formGroup]="controlForm">
+<!-- <form [formGroup]="controlForm">
   Top: {{ top?.value }}<input [formControlName]="'top'" type="range" min="-30000" step="10" max="30000" /> Bottom:
   {{ bottom?.value }}<input [formControlName]="'bottom'" type="range" min="-30000" step="10" max="30000" /> Left:
   {{ left?.value }}<input [formControlName]="'left'" type="range" min="-30000" step="10" max="30000" /> Right:
@@ -7,7 +7,19 @@
   }}<input [formControlName]="'rotateTopBottom'" type="range" min="-30000" step="10" max="30000" /> Rotate Right2Left:
   {{ rotateRightLeft?.value
   }}<input [formControlName]="'rotateRightLeft'" type="range" min="-30000" step="10" max="30000" />
-</form>
+</form> -->
+<button type="text" (mousedown)="onMouseDown('translate', 'x')" (mouseup)="stopAction()">move x up {{ x }}</button>
+<button type="text" (mousedown)="onMouseDown('translate', '-x')" (mouseup)="stopAction()">move x down {{ x }}</button>
+<button type="text" (mousedown)="onMouseDown('translate', 'y')" (mouseup)="stopAction()">move y up {{ y }}</button>
+<button type="text" (mousedown)="onMouseDown('translate', '-y')" (mouseup)="stopAction()">move y down {{ y }}</button>
+<button type="text" (mousedown)="onMouseDown('translate', 'z')" (mouseup)="stopAction()">move z up {{ z }}</button>
+<button type="text" (mousedown)="onMouseDown('translate', '-z')" (mouseup)="stopAction()">move z down {{ z }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', 'x')" (mouseup)="stopAction()">rotate x up {{ rX }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', '-x')" (mouseup)="stopAction()">rotate x down {{ rX }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', 'y')" (mouseup)="stopAction()">rotate y up {{ rY }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', '-y')" (mouseup)="stopAction()">rotate y down {{ rY }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', 'z')" (mouseup)="stopAction()">rotate z up {{ rZ }}</button>
+<button type="text" (mousedown)="onMouseDown('rotate', '-z')" (mouseup)="stopAction()">rotate z down {{ rZ }}</button>
 
 <div class="engine-wrapper">
   <canvas #rendererCanvas id="renderCanvas"></canvas>
