@@ -4,6 +4,7 @@ import { Maze } from '../../../maze/models/maze';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 let interval;
+let randomCubesServiceGlobal: any;
 
 // Mapping button index to each button
 // Each joycon contains 11 buttons indexed
@@ -97,12 +98,7 @@ export class RandomCubesComponent implements OnInit, AfterViewInit {
               ${gamepad.buttons.length} buttons, ${gamepad.axes.length} axes.`);
   }
 
-  ngAfterViewInit() {
-    if (!('ongamepadconnected' in window)) {
-      // No gamepad events available, poll instead.
-      interval = setInterval(this.pollGamepads, 100);
-    }
-  }
+  ngAfterViewInit() {}
 
   ngOnInit() {
     this.initControls();
@@ -110,6 +106,14 @@ export class RandomCubesComponent implements OnInit, AfterViewInit {
     this.subscribeToValueChanges();
     this.canvas = document.getElementById('maze') as HTMLCanvasElement;
     this.drawMaze();
+
+    randomCubesServiceGlobal = this.randomCubesService;
+    setTimeout(() => {
+      if (!('ongamepadconnected' in window)) {
+        // No gamepad events available, poll instead.
+        interval = setInterval(this.pollGamepads, 100);
+      }
+    }, 2000);
   }
 
   initControls() {
@@ -176,50 +180,47 @@ export class RandomCubesComponent implements OnInit, AfterViewInit {
     for (const gamepad of gamepads) {
       gamepadArray.push(gamepad);
     }
-    console.log('polling pads', gamepadArray);
+
     const orderedGamepads = [];
     // orderedGamepads.push(gamepadArray.find(g => g && g.id.indexOf('GAMEPAD Vendor: 057e Product: 200e') > -1));
     orderedGamepads.push(gamepadArray.find(g => g && g.id.indexOf('STANDARD GAMEPAD Vendor: 057e') > -1));
 
     for (const orderedGamepad of orderedGamepads) {
       if (orderedGamepad) {
-        console.log('orderedGamepad', orderedGamepad);
+        // console.log('orderedGamepad', orderedGamepad);
         this.axes = orderedGamepad.axes.toString();
         if (this.axes !== '0,0,0,0') {
           console.log('axes', this.axes);
-          const a = orderedGamepad.axes[0];
-          const b = orderedGamepad.axes[1];
-          const c = orderedGamepad.axes[2];
-          const d = orderedGamepad.axes[3];
+          const a = Math.round(orderedGamepad.axes[0]);
+          const b = Math.round(orderedGamepad.axes[1]);
+          const c = Math.round(orderedGamepad.axes[2]);
+          const d = Math.round(orderedGamepad.axes[3]);
 
           let action;
           let direction;
           // Left axes
           if (c === 0 && d === 0) {
             action = 'leftJoy';
-            if (a > 0 && b < 0) {
+            if (b === -1) {
               direction = 'up';
-            } else if (a > 0 && b > 0) {
+            } else if (b === 1) {
               direction = 'down';
-            } else if (a < 0 && b < 0) {
+            } else if (a === -1) {
               direction = 'rotateLeft';
-            } else if (a < 0 && b > 0) {
+            } else if (a === 1) {
               direction = 'rotateRight';
             }
           } else if (a === 0 && b === 0) {
             // Right axes
             action = 'rightJoy';
-            if (c < 0 && d > 0) {
+            if (d === -1) {
               direction = 'forward';
-            } else if (c > 0 && d > 0) {
+            } else if (d === 1) {
               direction = 'backward';
-            } else if (c < 0 && d < 0) {
-              direction = 'L';
-            } else if (c > 0 && d < 0) {
-              direction = 'R';
             }
           }
-          this.randomCubesService.navigate(action, direction, 100);
+          console.log('action direction', action, direction);
+          randomCubesServiceGlobal.navigate(action, direction, 100);
         }
         this.timestamp = orderedGamepad.timestamp.toString();
         const buttons = orderedGamepad.buttons;

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			body {
+				background-color: #ffffff;
+				margin: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
+		<script>
+
+			var camera, scene, renderer;
+			var geometry, material, mesh;
+
+			function init() {
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xd7f0f7 );
+				
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+				
+				camera.position.y = 400;
+				camera.position.z = 400;
+				camera.position.x = -45 * Math.PI /  180;
+
+				// Setup world
+				var geo = new THREE.PlaneGeometry(2000, 2000, 20, 20);
+				var mat = new THREE.MeshBasicMaterial({
+					color: 0x9db3b5, overdraw: true
+				});
+				var floor = new THREE.Mesh(geo, mat);
+				floor.rotation.x = -90 * Math.PI / 180;
+				scene.add(floor);
+				floor.receiveShadow = true;
+				
+				// Create a cube, original building
+				var geo = new THREE.CubeGeometry(1, 1, 1);
+				geo.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0));
+				var material = new THREE.MeshPhongMaterial({overdraw: true});
+				
+				// Add light
+				var light = new THREE.DirectionalLight(0xf6e86d); 
+				light.position.set(1, 3, 2);
+ 
+				scene.add(light);
+				scene.fog = new THREE.FogExp2(0x9db3b5, 0.002, 88);
+				
+				// Cloned buildings
+				var cityGeometry = new THREE.Geometry();
+				for (var i = 0;  i < 300; i++) {
+					var building = new THREE.Mesh(geo.clone());
+					building.position.x = Math.floor(Math.random() * 200 - 100) * 4;
+					building.position.z = Math.floor(Math.random() * 200 - 100) * 4;
+					building.scale.x = Math.random() * 50 + 10;
+					building.scale.y = Math.random() * building.scale.x * 8 + 8;
+					building.scale.z = building.scale.x;
+					THREE.GeometryUtils.merge(cityGeometry, building)
+					// scene.add(building);
+				}
+				var city = new THREE.Mesh(cityGeometry, material);
+				city.castShadow = true;
+				city.receiveShadow = true;
+				scene.add(city);
+				
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.shadowMapEnabled = true;
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );				
+				
+			}
+
+
+			function animate( time ) {
+				// mesh.rotation.x = time * 0.0005;
+				// mesh.rotation.y = time * 0.001;
+
+				renderer.render( scene, camera );
+				requestAnimationFrame( animate );
+
+			}
+
+			init();
+			requestAnimationFrame( animate );
+
+		</script>
+	</body>
+</html>
